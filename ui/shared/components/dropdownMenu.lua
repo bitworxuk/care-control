@@ -39,7 +39,7 @@ function dropdownMenu:new(config)
     local labelOffset = label.x + label.width + labelPad
 
     local dropdownSectionBackground = display.newRect(buttonGroup, labelOffset, 0, config.width - labelOffset - 5,
-        config.height - 2)
+        config.height - 1)
     dropdownSectionBackground.anchorX = 0
 
     local selectedLabel = display.newText({
@@ -60,7 +60,7 @@ function dropdownMenu:new(config)
     buttonGroup:insert(trailingGroup)
 
     local dropdownEndBackground = display.newRoundedRect(trailingGroup,
-        0, 0, 40, config.height - 2, cornerRounding)
+        0, 0, 40, config.height - 1, cornerRounding)
 
     local dropDownIcon = display.newRect(trailingGroup, 0, 0, 20, 20)
     dropDownIcon:setFillColor(unpack(colorScheme.greyShade2))

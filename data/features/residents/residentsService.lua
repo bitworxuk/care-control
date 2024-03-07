@@ -4,7 +4,7 @@ local repo = require("data.features.residents.residentsRepository"):new()
 
 local function filterData(data, limit, offset)
     local startRecord = offset + 1
-    local endRecord = startRecord + limit
+    local endRecord = startRecord - 1 + limit
     if (startRecord > #data) then
         return {}
     end
