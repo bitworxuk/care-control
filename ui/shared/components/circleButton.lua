@@ -24,7 +24,7 @@ function circleButton:new(config)
     end
 
     --TODO - Add icon
-    local icon = display.newRect(parent, 0, 0, 5, 5)
+    local icon = display.newRect(parent, 0, 0, 10, 10)
 
     function parent:touch(e)
         if (e.phase == "ended") then

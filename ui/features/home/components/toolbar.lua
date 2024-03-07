@@ -1,37 +1,31 @@
-local composer = require("composer")
-local scene = composer.newScene()
+local toolbar = {}
 
 local colorScheme = require("ui.shared.colorScheme")
 local constants = require("ui.shared.constants")
+local productLogoComponent = require("ui.shared.components.productLogo")
+local toolbarComponent = require("ui.shared.components.toolbar")
+local circleButtonComponent = require("ui.shared.components.circleButton")
+local ctaComponent = require('ui.shared.components.cta')
 
-local productLogoComponent = require("ui.components.productLogo")
-local toolbarComponent = require("ui.components.toolbar")
-local circleButtonComponent = require("ui.components.circleButton")
-local ctaComponent = require('ui.components.cta')
+function toolbar:new()
+    local buttonWidth = 100
+    local buttonHeight = 30
 
-function scene:create(event)
-    local group = self.view
-
-    local background = display.newRect(group, CENTERX, CENTERY, WIDTH, HEIGHT)
-    background:setFillColor(unpack(colorScheme.background));
-
-    local buttonWidth = 50
-    local buttonHeight = 18
-
-    local toolbar = toolbarComponent:new({
+    return toolbarComponent:new({
         width = WIDTH,
-        height = 35,
+        height = 70,
         backgroundColor = colorScheme.primary,
+        componentSpacing = 20,
         leading = {
             circleButtonComponent:new({
-                radius = 8,
+                radius = 15,
                 style = constants.stylePrimary,
                 onTap = function()
                     native.showAlert("Back", "Back touched", { "ok" })
                 end
             }),
             productLogoComponent:new({
-                width = 70
+                width = 160
             })
         },
         trailing = {
@@ -67,39 +61,6 @@ function scene:create(event)
             })
         }
     })
-    toolbar.x = 0
-    toolbar.y = STATUSBARHEIGHT
 end
 
-function scene:show(event)
-    local group = self.view
-    local phase = event.phase
-
-    if (phase == "will") then
-
-    elseif (phase == "did") then
-
-    end
-end
-
-function scene:hide(event)
-    local group = self.view
-    local phase = event.phase
-
-    if (phase == "will") then
-
-    elseif (phase == "did") then
-
-    end
-end
-
-function scene:destroy(event)
-    local group = self.view
-end
-
-scene:addEventListener("create", scene)
-scene:addEventListener("show", scene)
-scene:addEventListener("hide", scene)
-scene:addEventListener("destroy", scene)
-
-return scene
+return toolbar

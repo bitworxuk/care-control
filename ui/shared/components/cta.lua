@@ -34,13 +34,13 @@ function cta:new(config)
     overlay.anchorChildren = true
     parent:insert(overlay)
 
-    local icon = display.newRect(overlay, 0, 0, 5, 5)
+    local icon = display.newRect(overlay, 0, 0, 10, 10)
     icon.anchorX = 0
 
     local label = display.newText({
         parent = overlay,
-        x = icon.width + 6,
-        fontSize = 6,
+        x = icon.width + 10,
+        fontSize = 12,
         text = config.label,
     })
     label.anchorX = 0

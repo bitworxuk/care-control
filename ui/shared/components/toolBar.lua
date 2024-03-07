@@ -1,15 +1,16 @@
 local toolbar = {}
 
 local utils = require("ui.shared.utils")
+local colorScheme = require("ui.shared.colorScheme")
 
 local requiredParams = {
     "width",
     "height",
     "leading",
     "trailing",
+    "componentSpacing",
     "backgroundColor"
 }
-
 
 function toolbar:new(config)
     utils.verifyConfig(requiredParams, config, "TOOLBAR")
@@ -24,9 +25,14 @@ function toolbar:new(config)
     background.anchorY = 0
     background:setFillColor(unpack(config.backgroundColor))
 
+    local divider = display.newRect(parent, 0, background.height, config.width, 1)
+    divider.anchorX = 0
+    divider.anchorY = 0
+    divider:setFillColor(unpack(colorScheme.greyShade2))
+
     --Left and right side components
-    local edgeMargin = 10
-    local componentSpacing = 10
+    local edgeMargin = 20
+    local componentSpacing = config.componentSpacing
     local rollingX = 0
 
     --Leading components

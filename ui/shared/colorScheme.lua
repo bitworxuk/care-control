@@ -8,5 +8,9 @@ local colorScheme = {
     buttonPrimary = colorFromRgba(13, 55, 88, 1),
     buttonSecondary = colorFromRgba(26, 185, 177, 1),
     buttonTertiary = colorFromRgba(255, 255, 255, 1),
+    greyShade1 = colorFromRgba(220, 220, 220, 1),
+    greyShade2 = colorFromRgba(200, 200, 200, 1),
+    greyShade3 = colorFromRgba(150, 150, 150, 1),
+
 }
 return colorScheme
