@@ -1,4 +1,4 @@
 require("globals")
 
 local composer = require("composer")
-composer.gotoScene("ui.features.home.scenes.homeScene")
+composer.gotoScene("ui.features.residents.scenes.residentsScene")

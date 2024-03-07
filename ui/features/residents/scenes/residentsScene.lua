@@ -4,9 +4,11 @@ local scene = composer.newScene()
 local colorScheme = require("ui.shared.colorScheme")
 local constants = require("ui.shared.constants")
 
-local toolbarComponent = require("ui.features.home.components.toolbar")
+local toolbarComponent = require("ui.features.residents.components.toolbar")
 local dropdownMenuComponent = require("ui.shared.components.dropdownMenu")
-local filterBarComponent = require("ui.features.home.components.filterBar")
+local filterBarComponent = require("ui.features.residents.components.filterBar")
+
+local residentsService = require("data.features.residents.residentsService")
 
 function scene:create(event)
     local group = self.view
@@ -32,7 +34,17 @@ function scene:show(event)
     if (phase == "will") then
 
     elseif (phase == "did") then
-
+        residentsService.getResidents({
+            refresh = true,
+            limit = 10,
+            offset = 0,
+            onSuccess = function(data)
+                for i = 1, #data do
+                    print(data[i])
+                end
+            end,
+            onFail = function() end
+        })
     end
 end
 
