@@ -26,7 +26,7 @@ function cta:new(config)
         rect:setFillColor(unpack(colorScheme.buttonSecondary))
     else
         rect:setFillColor(unpack(colorScheme.buttonTertiary))
-        rect.setStrokeWidth(2)
+        rect.strokeWidth = 1
         rect.stroke = colorScheme.buttonSecondary
     end
 
@@ -44,6 +44,11 @@ function cta:new(config)
         text = config.label,
     })
     label.anchorX = 0
+
+    if (config.style == constants.styleTertiary) then
+        icon:setFillColor(unpack(colorScheme.buttonSecondary))
+        label:setFillColor(unpack(colorScheme.buttonSecondary))
+    end
 
     --Touch listener
     function parent:touch(e)

@@ -15,6 +15,9 @@ function scene:create(event)
     local background = display.newRect(group, CENTERX, CENTERY, WIDTH, HEIGHT)
     background:setFillColor(unpack(colorScheme.background));
 
+    local buttonWidth = 50
+    local buttonHeight = 18
+
     local toolbar = toolbarComponent:new({
         width = WIDTH,
         height = 35,
@@ -33,8 +36,8 @@ function scene:create(event)
         },
         trailing = {
             ctaComponent:new({
-                width = 50,
-                height = 18,
+                width = buttonWidth,
+                height = buttonHeight,
                 label = "Get help",
                 iconPath = "todo",
                 style = constants.styleSecondary,
@@ -43,8 +46,8 @@ function scene:create(event)
                 end
             }),
             ctaComponent:new({
-                width = 50,
-                height = 18,
+                width = buttonWidth,
+                height = buttonHeight,
                 label = "Finish",
                 iconPath = "todo",
                 style = constants.styleSecondary,
@@ -53,8 +56,8 @@ function scene:create(event)
                 end
             }),
             ctaComponent:new({
-                width = 50,
-                height = 18,
+                width = buttonWidth,
+                height = buttonHeight,
                 label = "Home",
                 iconPath = "todo",
                 style = constants.stylePrimary,
