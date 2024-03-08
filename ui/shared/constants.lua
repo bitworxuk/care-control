@@ -1,7 +1,5 @@
-local constants = {
+return {
     stylePrimary = "primary",
     styleSecondary = "secondary",
-    styleTertiary = "tertiary"
+    styleTertiary = "tertiary",
 }
-
-return constants

@@ -1,6 +1,8 @@
 local residentsService = {}
 
 local repo = require("data.features.residents.residentsRepository"):new()
+local sortOrder = require("data.shared.sortOrder")
+local residentsModel = require("data.features.residents.residentsModel")
 
 local function filterData(data, limit, offset)
     local startRecord = offset + 1
@@ -20,16 +22,45 @@ local function filterData(data, limit, offset)
     return results
 end
 
-function residentsService.getResidents(params)
+function residentsService:new()
     local allData = {}
-    repo.read({
-        refresh = params.refresh,
-        onSuccess = function(data)
-            allData = data
-            params.onSuccess(filterData(allData, params.limit, params.offset))
-        end,
-        onFail = params.onFail
-    })
+
+    function self.getResidents(params)
+        repo.read({
+            refresh = params.refresh,
+            onSuccess = function(data)
+                allData = data
+                local sortParams = {
+                    key = params.defaultSortKey,
+                    limit = params.limit,
+                    offset = params.offset
+                }
+                if (params.defaultSortOrder == sortOrder.asc) then
+                    return params.onSuccess(self.sortAsc(sortParams))
+                end
+                return params.onSuccess(self.sortDesc(sortParams))
+            end,
+            onFail = params.onFail
+        })
+    end
+
+    function self.sortAsc(params)
+        table.sort(allData, function(a, b)
+            return a[params.key] .. "-" .. a[residentsModel.id] <
+                b[params.key] .. "-" .. b[residentsModel.id]
+        end)
+        return filterData(allData, params.limit, params.offset)
+    end
+
+    function self.sortDesc(params)
+        table.sort(allData, function(a, b)
+            return a[params.key] .. "-" .. a[residentsModel.id] >
+                b[params.key] .. "-" .. b[residentsModel.id]
+        end)
+        return filterData(allData, params.limit, params.offset)
+    end
+
+    return self
 end
 
 return residentsService

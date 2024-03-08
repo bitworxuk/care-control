@@ -8,6 +8,8 @@ local requiredParams = {
     "height",
     "leading",
     "trailing",
+    "leftPad",
+    "rightPad",
     "componentSpacing",
     "backgroundColor"
 }
@@ -39,7 +41,7 @@ function toolbar:new(config)
     local leadingGroup = display.newGroup()
     leadingGroup.anchorChildren = true
     leadingGroup.anchorX = 0
-    leadingGroup.x = edgeMargin
+    leadingGroup.x = edgeMargin + config.leftPad
     leadingGroup.y = config.height * 0.5
     parent:insert(leadingGroup)
 
@@ -55,7 +57,7 @@ function toolbar:new(config)
     local trailingGroup = display.newGroup()
     trailingGroup.anchorChildren = true
     trailingGroup.anchorX = 1
-    trailingGroup.x = config.width - edgeMargin
+    trailingGroup.x = config.width - edgeMargin - config.rightPad
     trailingGroup.y = config.height * 0.5
     parent:insert(trailingGroup)
 

@@ -1,24 +1,25 @@
 local composer = require("composer")
 local scene = composer.newScene()
 
+local screen = require("ui.shared.screen")
 local colorScheme = require("ui.shared.colorScheme")
-local constants = require("ui.shared.constants")
-
 local widget = require("widget")
 local toolbarComponent = require("ui.features.residents.components.toolbar")
 local filterBarComponent = require("ui.features.residents.components.filterBar")
 local residentCardComponent = require("ui.features.residents.components.residentCard")
-
+local residentsModel = require("data.features.residents.residentsModel")
 local controller = require("ui.features.residents.controller.residentsController"):new()
-
-local viewState = {}
 
 function scene:create(event)
     local group = self.view
 
+    local viewState = controller.getState()
     local cards = {}
+    local filterBar
+    local loadText
+    local scrollView
 
-    local background = display.newRect(group, CENTERX, CENTERY, WIDTH, HEIGHT)
+    local background = display.newRect(group, screen.centerX, screen.centerY, screen.width, screen.height)
     background:setFillColor(unpack(colorScheme.background));
 
     local toolbar = toolbarComponent:new({
@@ -36,26 +37,39 @@ function scene:create(event)
     toolbar.y = 0
     group:insert(toolbar)
 
-    local filterBar = filterBarComponent:new({
-        onFilter1 = function(value)
-            print("Filter changed " .. value)
-        end,
-        onFilter2 = function(value)
-            print("Filter changed " .. value)
-        end,
-        onFilter3 = function(value)
-            print("Filter changed " .. value)
-        end,
-        onClear = function()
-            print("Clear pressed")
-        end,
-        onUpdate = function()
-            controller.loadData(true)
-        end,
-    })
-    filterBar.x = 0
-    filterBar.y = toolbar.height
-    group:insert(filterBar)
+
+    local function drawFilterBar()
+        if (filterBar ~= nil) then
+            filterBar:removeSelf()
+        end
+        filterBar = filterBarComponent:new({
+            sortOrder = viewState.currentSortOrder,
+            onSortChanged = function(sortOrder)
+                controller.sort(sortOrder)
+            end,
+            onFilter1 = function(value)
+                print("Filter changed " .. value)
+            end,
+            onFilter2 = function(value)
+                print("Filter changed " .. value)
+            end,
+            onFilter3 = function(value)
+                print("Filter changed " .. value)
+            end,
+            onClear = function()
+                drawFilterBar()
+            end,
+            onUpdate = function()
+                filterBar.closeMenus()
+                controller.loadData(true)
+            end,
+        })
+        filterBar.x = 0
+        filterBar.y = toolbar.height
+        group:insert(filterBar)
+    end
+
+    drawFilterBar()
 
     local function scrollListener(event)
         if (event.limitReached) then
@@ -66,16 +80,15 @@ function scene:create(event)
         return true
     end
 
-    local scrollView
-    local function addScrollView()
+    local function drawScrollview()
         if (scrollView) then
             scrollView:removeSelf()
             scrollView = nil
         end
 
         scrollView = widget.newScrollView({
-            width = WIDTH,
-            height = HEIGHT - (filterBar.y + filterBar.height),
+            width = screen.width,
+            height = screen.height - (filterBar.y + filterBar.height),
             top = filterBar.y + filterBar.height,
             left = 0,
             hideBackground = true,
@@ -89,20 +102,31 @@ function scene:create(event)
         background:toBack()
     end
 
-    local function addCards(rebuild)
+    local function drawCards(rebuild)
         local tilesPerRow = 4
         local colCount = 0
         local colSpace = 15
         local rowCount = 0
         local rowSpace = 15
-        local startX = colSpace * .5
+        local startX = screen.leftInset + colSpace * .5
         local startY = rowSpace * .5
-        local tileWidth = (WIDTH / 4) - colSpace - (colSpace / 4)
+        local screenPad = screen.leftInset + screen.rightInset
+        local tileWidth = ((screen.width - screenPad) / 4) - colSpace - (colSpace / 4)
         local tileHeight = 90
 
         if (#viewState.cardData == 0) then
-            addScrollView()
+            drawScrollview()
             cards = {}
+            loadText = display.newText({
+                x = screen.centerX,
+                y = screen.centerY - 100,
+                text = "loading..."
+            })
+            loadText:setFillColor(unpack(colorScheme.buttonPrimary))
+            scrollView:insert(loadText)
+        elseif (loadText ~= nil) then
+            loadText:removeSelf()
+            loadText = nil
         end
 
         for i = 1, #viewState.cardData do
@@ -112,12 +136,12 @@ function scene:create(event)
                 local alertStatus = residentCardComponent.alertStatus.none
                 local alertCount = 0
 
-                if (cardData.outstanding ~= nil and cardData.outstanding > 0) then
+                if (cardData[residentsModel.outstanding] > 0) then
                     alertStatus = residentCardComponent.alertStatus.warning
-                    alertCount = cardData.outstanding
-                elseif (cardData.due ~= nil and cardData.due > 0) then
+                    alertCount = cardData[residentsModel.outstanding]
+                elseif (cardData[residentsModel.due] > 0) then
                     alertStatus = residentCardComponent.alertStatus.danger
-                    alertCount = cardData.due
+                    alertCount = cardData[residentsModel.due]
                 end
 
                 local card = residentCardComponent:new({
@@ -145,7 +169,7 @@ function scene:create(event)
             if (colCount >= tilesPerRow) then
                 colCount = 0
                 rowCount = rowCount + 1
-                startX = colSpace * .5
+                startX = screen.leftInset + colSpace * .5
                 startY = startY + tileHeight + rowSpace
             end
         end
@@ -153,7 +177,7 @@ function scene:create(event)
 
     local function onStateChange(e)
         viewState = e.state
-        addCards()
+        drawCards()
     end
 
     Runtime:addEventListener(controller.eventKey, onStateChange)

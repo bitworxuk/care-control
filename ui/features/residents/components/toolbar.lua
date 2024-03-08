@@ -1,9 +1,10 @@
 local toolbar = {}
 
+local screen = require("ui.shared.screen")
 local colorScheme = require("ui.shared.colorScheme")
 local constants = require("ui.shared.constants")
 local productLogoComponent = require("ui.shared.components.productLogo")
-local toolbarComponent = require("ui.shared.components.toolbar")
+local toolbarComponent = require("ui.shared.components.toolBar")
 local circleButtonComponent = require("ui.shared.components.circleButton")
 local ctaComponent = require('ui.shared.components.cta')
 local utils = require("ui.shared.utils")
@@ -21,8 +22,10 @@ function toolbar:new(params)
     local buttonHeight = 30
 
     return toolbarComponent:new({
-        width = WIDTH,
+        width = screen.width,
         height = 70,
+        leftPad = screen.leftInset,
+        rightPad = screen.rightInset,
         backgroundColor = colorScheme.primary,
         componentSpacing = 20,
         leading = {

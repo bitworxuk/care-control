@@ -50,6 +50,8 @@ function residentCard:new(config)
     local image = display.newCircle(contentGroup, 0, 0, config.height * .3)
     image:setFillColor(unpack(colorScheme.greyShade1))
     image.anchorX = 0
+    image.strokeWidth = 2
+    image.stroke = colorScheme.buttonSecondary
 
     local titleText = config.title
     local stringLimit = 16
@@ -101,7 +103,7 @@ function residentCard:new(config)
         x = 8,
         y = 0,
         text = config.alertCount,
-        fontSize = 8
+        fontSize = 10
     })
 
     if (warning.isVisible) then
@@ -113,10 +115,7 @@ function residentCard:new(config)
         warningBackground:setFillColor(bgColor[1], bgColor[2], bgColor[3], .3)
         icon:setFillColor(unpack(color))
         counter:setFillColor(unpack(color))
-        image.strokeWidth = 2
         image.stroke = color
-    else
-        image.strokeWidth = 0
     end
 
     return parent

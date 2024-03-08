@@ -1,6 +1,7 @@
 local dropdownMenu = {}
 
 local colorScheme = require("ui.shared.colorScheme")
+local utils = require("ui.shared.utils")
 
 local requiredParams = {
     "width",
@@ -11,6 +12,8 @@ local requiredParams = {
 }
 
 function dropdownMenu:new(config)
+    utils.verifyConfig(requiredParams, config, "DROPDOWN_MENU")
+
     local parent = display.newGroup()
     parent.anchorChildren = true
 
@@ -128,6 +131,12 @@ function dropdownMenu:new(config)
     end
 
     trailingGroup:addEventListener("touch")
+
+    function parent.close()
+        local visible = false
+        sortMenuItems(visible)
+        menuGroup.isVisible = visible
+    end
 
     return parent
 end
