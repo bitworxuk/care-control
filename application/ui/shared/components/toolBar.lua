@@ -1,7 +1,7 @@
 local toolbar = {}
 
-local utils = require("ui.shared.utils")
-local colorScheme = require("ui.shared.colorScheme")
+local utils = require("application.ui.shared.utils")
+local colorScheme = require("application.ui.shared.colorScheme")
 
 local requiredParams = {
     "width",

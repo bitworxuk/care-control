@@ -1,14 +1,14 @@
 local composer = require("composer")
 local scene = composer.newScene()
 
-local screen = require("ui.shared.screen")
-local colorScheme = require("ui.shared.colorScheme")
+local screen = require("application.ui.shared.screen")
+local colorScheme = require("application.ui.shared.colorScheme")
 local widget = require("widget")
-local toolbarComponent = require("ui.features.residents.components.toolbar")
-local filterBarComponent = require("ui.features.residents.components.filterBar")
-local residentCardComponent = require("ui.features.residents.components.residentCard")
-local residentsModel = require("data.features.residents.residentsModel")
-local controller = require("ui.features.residents.controller.residentsController"):new()
+local toolbarComponent = require("application.ui.features.residents.components.toolbar")
+local filterBarComponent = require("application.ui.features.residents.components.filterBar")
+local residentCardComponent = require("application.ui.features.residents.components.residentCard")
+local residentsModel = require("application.data.features.residents.residentsModel")
+local controller = require("application.ui.features.residents.controller.residentsController"):new()
 
 function scene:create(event)
     local group = self.view

@@ -1,13 +1,13 @@
 local filterBar = {}
 
-local colorScheme = require("ui.shared.colorScheme")
-local toolbarComponent = require("ui.shared.components.toolBar")
-local dropdownMenuComponent = require("ui.shared.components.dropdownMenu")
-local ctaComponent = require('ui.shared.components.cta')
-local sortButtonComponent = require("ui.shared.components.sortButton")
-local constants = require("ui.shared.constants")
-local utils = require("ui.shared.utils")
-local screen = require("ui.shared.screen")
+local colorScheme = require("application.ui.shared.colorScheme")
+local toolbarComponent = require("application.ui.shared.components.toolBar")
+local dropdownMenuComponent = require("application.ui.shared.components.dropdownMenu")
+local ctaComponent = require("application.ui.shared.components.cta")
+local sortButtonComponent = require("application.ui.shared.components.sortButton")
+local constants = require("application.ui.shared.constants")
+local utils = require("application.ui.shared.utils")
+local screen = require("application.ui.shared.screen")
 
 local requiredParams = {
     "onSortChanged",

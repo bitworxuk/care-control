@@ -1,9 +1,9 @@
 local residentsController = {}
 
-local residentsService = require("data.features.residents.residentsService"):new()
-local dataUtils = require("data.shared.utils")
-local residentsModel = require("data.features.residents.residentsModel")
-local sortOrder = require("data.shared.sortOrder")
+local residentsService = require("application.data.features.residents.residentsService"):new()
+local dataUtils = require("application.data.shared.utils")
+local residentsModel = require("application.data.features.residents.residentsModel")
+local sortOrder = require("application.data.shared.sortOrder")
 
 local defaultState = {
     cardData = {},

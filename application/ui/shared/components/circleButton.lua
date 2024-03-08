@@ -1,8 +1,8 @@
 local circleButton = {}
 
-local colorScheme = require("ui.shared.colorScheme")
-local utils = require("ui.shared.utils")
-local constants = require("ui.shared.constants")
+local colorScheme = require("application.ui.shared.colorScheme")
+local utils = require("application.ui.shared.utils")
+local constants = require("application.ui.shared.constants")
 
 local requiredParams = {
     "radius",

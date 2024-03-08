@@ -1,8 +1,8 @@
 local sortButton = {}
 
-local colorScheme = require("ui.shared.colorScheme")
-local utils = require("ui.shared.utils")
-local sortOrder = require("data.shared.sortOrder")
+local colorScheme = require("application.ui.shared.colorScheme")
+local utils = require("application.ui.shared.utils")
+local sortOrder = require("application.data.shared.sortOrder")
 
 local requiredParams = {
     "width",

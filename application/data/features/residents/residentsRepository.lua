@@ -1,6 +1,6 @@
 local residentsRepository = {}
 
-local residentsApi = require("data.features.residents.residentsApiMock")
+local residentsApi = require("application.data.features.residents.residentsApiMock")
 
 function residentsRepository:new()
     local cachedData = {}

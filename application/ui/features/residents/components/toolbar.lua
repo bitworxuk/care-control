@@ -1,13 +1,13 @@
 local toolbar = {}
 
-local screen = require("ui.shared.screen")
-local colorScheme = require("ui.shared.colorScheme")
-local constants = require("ui.shared.constants")
-local productLogoComponent = require("ui.shared.components.productLogo")
-local toolbarComponent = require("ui.shared.components.toolBar")
-local circleButtonComponent = require("ui.shared.components.circleButton")
-local ctaComponent = require('ui.shared.components.cta')
-local utils = require("ui.shared.utils")
+local screen = require("application.ui.shared.screen")
+local colorScheme = require("application.ui.shared.colorScheme")
+local constants = require("application.ui.shared.constants")
+local productLogoComponent = require("application.ui.shared.components.productLogo")
+local toolbarComponent = require("application.ui.shared.components.toolBar")
+local circleButtonComponent = require("application.ui.shared.components.circleButton")
+local ctaComponent = require("application.ui.shared.components.cta")
+local utils = require("application.ui.shared.utils")
 
 local requiredParams = {
     "onHelp",

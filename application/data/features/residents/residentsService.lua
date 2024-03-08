@@ -1,8 +1,8 @@
 local residentsService = {}
 
-local repo = require("data.features.residents.residentsRepository"):new()
-local sortOrder = require("data.shared.sortOrder")
-local residentsModel = require("data.features.residents.residentsModel")
+local repo = require("application.data.features.residents.residentsRepository"):new()
+local sortOrder = require("application.data.shared.sortOrder")
+local residentsModel = require("application.data.features.residents.residentsModel")
 
 local function filterData(data, limit, offset)
     local startRecord = offset + 1
