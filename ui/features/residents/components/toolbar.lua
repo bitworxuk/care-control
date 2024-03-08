@@ -6,8 +6,17 @@ local productLogoComponent = require("ui.shared.components.productLogo")
 local toolbarComponent = require("ui.shared.components.toolbar")
 local circleButtonComponent = require("ui.shared.components.circleButton")
 local ctaComponent = require('ui.shared.components.cta')
+local utils = require("ui.shared.utils")
 
-function toolbar:new()
+local requiredParams = {
+    "onHelp",
+    "onFinish",
+    "onHome",
+}
+
+function toolbar:new(params)
+    utils.verifyConfig(requiredParams, params, "RESIDENTS_TOOLBAR")
+
     local buttonWidth = 100
     local buttonHeight = 30
 

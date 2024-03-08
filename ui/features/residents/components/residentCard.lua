@@ -52,7 +52,7 @@ function residentCard:new(config)
     image.anchorX = 0
 
     local titleText = config.title
-    local stringLimit = 22
+    local stringLimit = 16
     if (#titleText > stringLimit) then
         titleText = titleText:sub(1, stringLimit) .. "..."
     end

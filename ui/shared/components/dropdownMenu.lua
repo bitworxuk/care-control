@@ -112,6 +112,7 @@ function dropdownMenu:new(config)
                 selectedLabel.text = menuItemLabel.text
                 config.onItemSelected(menuItemLabel.text)
             end
+            return true
         end
 
         menuItem:addEventListener("touch")
@@ -123,6 +124,7 @@ function dropdownMenu:new(config)
             sortMenuItems(visible)
             menuGroup.isVisible = visible
         end
+        return true
     end
 
     trailingGroup:addEventListener("touch")
